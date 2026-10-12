@@ -1,0 +1,393 @@
+/*
+ * Settings dialog, its style cards, and the re-encryption wizards.
+ * Colours, fonts and shapes come only from the style variables; sizes are in
+ * em, and nothing has a fixed pixel height so 20px UI text still fits.
+ */
+
+/* --- layout --------------------------------------------------------------- */
+
+.sp-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 1.2em;
+}
+
+.sp-settings-nav {
+  flex: 0 0 11em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  padding-right: 0.9em;
+  border-right: var(--sp-shape-border-width) solid var(--sp-color-border);
+}
+
+.sp-settings-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.45em 0.6em;
+  border: none;
+  border-radius: var(--sp-shape-radius-sm);
+  background: transparent;
+  color: var(--sp-color-text-muted);
+  text-align: left;
+  cursor: pointer;
+}
+.sp-settings-nav-item:hover {
+  background: var(--sp-color-surface-hover);
+  color: var(--sp-color-text);
+}
+.sp-settings-nav-item.is-active {
+  background: var(--sp-color-surface-active);
+  color: var(--sp-color-accent);
+}
+
+.sp-settings-panel {
+  flex: 1 1 22em;
+  min-width: 0;
+  min-height: 26em;
+  max-height: 70vh;
+  padding-right: 0.3em;
+}
+
+.sp-settings-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-subhead {
+  margin: 1.1em 0 0.5em;
+  font-family: var(--sp-font-heading);
+  font-size: 1.08em;
+  font-weight: var(--sp-type-heading-weight);
+  color: var(--sp-color-heading);
+}
+.sp-settings-section > .sp-subhead:first-child,
+.sp-wizard-step > .sp-subhead:first-of-type {
+  margin-top: 0.2em;
+}
+
+/* --- style cards ---------------------------------------------------------- */
+
+.sp-style-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
+  gap: 0.7em;
+}
+
+.sp-style-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  min-width: 0;
+  padding: 0.5em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-surface);
+  color: var(--sp-color-text);
+  text-align: left;
+  cursor: pointer;
+}
+.sp-style-card:hover {
+  background: var(--sp-color-surface-hover);
+}
+.sp-style-card.is-active {
+  border-color: var(--sp-color-accent);
+  background: var(--sp-color-surface-active);
+}
+
+.sp-style-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  min-height: 4.6em;
+  padding: 0.5em 0.6em;
+  overflow: hidden;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border);
+  border-radius: var(--sp-shape-radius-sm);
+}
+.sp-style-swatch-heading {
+  display: block;
+  font-size: 1.3em;
+  line-height: 1.1;
+}
+.sp-style-swatch-body {
+  display: block;
+  overflow: hidden;
+  font-size: 0.92em;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sp-style-dots {
+  display: flex;
+  gap: 0.3em;
+  margin-top: auto;
+}
+.sp-style-dot {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: var(--sp-shape-radius-sm);
+}
+
+.sp-style-name {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.sp-style-check {
+  display: inline-flex;
+  margin-left: auto;
+  color: var(--sp-color-accent);
+}
+.sp-style-desc {
+  display: block;
+  font-size: 0.92em;
+  line-height: 1.4;
+  color: var(--sp-color-text-muted);
+}
+
+/* --- option and setting rows ---------------------------------------------- */
+
+.sp-option-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-option-row,
+.sp-setting-row,
+.sp-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5em 1.2em;
+  padding: 0.6em 0;
+  border-bottom: var(--sp-shape-border-width) solid var(--sp-color-border);
+  cursor: pointer;
+}
+
+.sp-option-text {
+  display: flex;
+  flex: 1 1 14em;
+  flex-direction: column;
+  gap: 0.15em;
+  min-width: 0;
+}
+.sp-option-label {
+  color: var(--sp-color-text);
+}
+
+.sp-setting-row > .sp-select {
+  width: auto;
+  min-width: 9em;
+}
+
+.sp-action-row > .sp-btn {
+  flex: none;
+}
+
+.sp-setting-link {
+  padding-top: 0.8em;
+}
+
+.sp-settings .sp-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 0;
+  padding: 0.2em 0;
+  border: none;
+  background: transparent;
+  color: var(--sp-color-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.sp-settings .sp-link-btn:hover {
+  background: transparent;
+}
+
+/* --- security panel ------------------------------------------------------- */
+
+.sp-settings .sp-info-box {
+  margin-bottom: 0.4em;
+}
+
+.sp-keep-list {
+  margin: 0.2em 0 0.8em;
+  padding-left: 1.2em;
+  line-height: 1.5;
+}
+.sp-keep-list li + li {
+  margin-top: 0.25em;
+}
+
+.sp-keep-note {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--sp-color-text-muted);
+}
+
+/* --- wizards -------------------------------------------------------------- */
+
+.sp-wizard {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sp-wizard [hidden] {
+  display: none !important;
+}
+
+.sp-wizard-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  min-width: 0;
+}
+.sp-wizard-step-label {
+  margin: 0;
+}
+.sp-wizard-step > .sp-hint {
+  margin: 0 0 0.6em;
+  line-height: 1.5;
+}
+.sp-wizard-step > .sp-warning-box {
+  margin-top: 0.4em;
+}
+.sp-wizard .sp-error-text {
+  margin-top: 0.1em;
+}
+
+.sp-path-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.sp-path-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 14em;
+  overflow: auto;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-input-bg);
+}
+.sp-path-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.3em 0.4em 0.3em 0.7em;
+  border-bottom: var(--sp-shape-border-width) solid var(--sp-color-border);
+}
+.sp-path-item:last-child {
+  border-bottom: none;
+}
+.sp-path-item > .sp-icon-btn {
+  flex: none;
+}
+.sp-path-text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.sp-path-empty {
+  margin: 0;
+  padding: 0.5em 0.7em;
+}
+
+.sp-path-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.sp-working {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+.sp-working-status {
+  margin: 0.3em 0 0;
+  line-height: 1.5;
+}
+
+.sp-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+.sp-progress-track {
+  height: 0.7em;
+  overflow: hidden;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-radius: var(--sp-shape-radius-sm);
+  background: var(--sp-color-input-bg);
+}
+.sp-progress-bar {
+  width: 0;
+  height: 100%;
+  background: var(--sp-color-accent);
+  transition: width 0.15s linear;
+}
+.sp-progress-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3em 1em;
+  font-size: 0.92em;
+  color: var(--sp-color-text-muted);
+}
+.sp-progress-file {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.sp-report {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  min-width: 0;
+}
+.sp-report-summary {
+  margin: 0;
+  line-height: 1.5;
+}
+.sp-report-scroll {
+  max-height: 16em;
+  overflow: auto;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-radius: var(--sp-shape-radius-md);
+}
+.sp-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.sp-report-table th,
+.sp-report-table td {
+  padding: 0.4em 0.6em;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: var(--sp-shape-border-width) solid var(--sp-color-border);
+}
+.sp-report-table th {
+  position: sticky;
+  top: 0;
+  background: var(--sp-color-surface-raised);
+  color: var(--sp-color-text-muted);
+  font-weight: normal;
+}
+.sp-report-path {
+  min-width: 8em;
+  overflow-wrap: anywhere;
+}
+.sp-report-table tr.is-failed td {
+  color: var(--sp-color-danger);
+}

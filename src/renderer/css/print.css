@@ -1,0 +1,148 @@
+/*
+ * Print / PDF layout. The page is rendered straight from the live document in
+ * memory: the chrome is hidden and only the active document is laid out.
+ *
+ * Margins: @page margin is 0 so the page colour of the style bleeds to the
+ * paper edge; the top and bottom margins come from .sp-print-edge elements
+ * that behave as a repeating table header / footer on every printed page.
+ */
+
+@page {
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: var(--sp-color-editor-bg) !important;
+    text-shadow: none !important;
+  }
+  #titlebar,
+  #toolbar,
+  #sidebar,
+  #sidebar-resizer,
+  #tabbar,
+  #findbar,
+  #statusbar,
+  #overlay-root,
+  #fx-layer,
+  .sp-empty-state,
+  .sp-no-print {
+    display: none !important;
+  }
+  #app,
+  #main,
+  #workspace,
+  #editor-host {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+  }
+  .sp-editor-pane {
+    display: none !important;
+  }
+  .sp-editor-pane.is-active {
+    display: block !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .sp-print-frame {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .sp-print-edge.sp-print-head {
+    display: table-header-group;
+  }
+  .sp-print-edge.sp-print-foot {
+    display: table-footer-group;
+  }
+  .sp-print-edge > div {
+    height: 17mm;
+  }
+  .sp-print-body {
+    display: table-row-group;
+  }
+  .sp-editor-mount {
+    font-size: 11.5pt;
+    min-height: 0;
+  }
+  .sp-document {
+    max-width: none;
+    margin: 0;
+    padding: 0 18mm;
+  }
+  .sp-document h1,
+  .sp-document h2,
+  .sp-document h3,
+  .sp-document h4 {
+    break-after: avoid;
+  }
+  .sp-document pre,
+  .sp-document blockquote,
+  .sp-document tr,
+  .sp-document li,
+  .sp-document .sp-graph-block {
+    break-inside: avoid;
+  }
+  .sp-document p {
+    orphans: 3;
+    widows: 3;
+  }
+  .ProseMirror-selectednode {
+    outline: none !important;
+  }
+  .ProseMirror-search-match,
+  .ProseMirror-active-search-match {
+    background: transparent !important;
+  }
+  .sp-placeholder::before,
+  .ProseMirror-gapcursor {
+    display: none !important;
+  }
+}
+
+/* "Dark text on white paper": override the colours of the style while printing. */
+html.sp-print-plain {
+  --sp-color-editor-bg: #ffffff !important;
+  --sp-color-text: #111111 !important;
+  --sp-color-heading: #000000 !important;
+  --sp-color-text-muted: #444444 !important;
+  --sp-color-text-faint: #777777 !important;
+  --sp-color-link: #1a3f8f !important;
+  --sp-color-code-bg: #f4f4f4 !important;
+  --sp-color-code-text: #111111 !important;
+  --sp-color-code-border: #cccccc !important;
+  --sp-color-inline-code-bg: #eeeeee !important;
+  --sp-color-inline-code-text: #111111 !important;
+  --sp-color-quote-bar: #888888 !important;
+  --sp-color-quote-text: #333333 !important;
+  --sp-color-quote-bg: transparent !important;
+  --sp-color-table-border: #999999 !important;
+  --sp-color-table-header-bg: #eeeeee !important;
+  --sp-color-table-header-text: #000000 !important;
+  --sp-color-table-stripe-bg: transparent !important;
+  --sp-color-divider: #888888 !important;
+  --sp-color-checkbox-border: #555555 !important;
+  --sp-color-checkbox-checked-bg: #333333 !important;
+  --sp-color-checkbox-check: #ffffff !important;
+  --sp-color-checked-text: #666666 !important;
+  --sp-syntax-comment: #6a737d !important;
+  --sp-syntax-keyword: #a626a4 !important;
+  --sp-syntax-string: #2f7d32 !important;
+  --sp-syntax-number: #9a5b00 !important;
+  --sp-syntax-function: #1a56b0 !important;
+  --sp-syntax-type: #8a5a00 !important;
+  --sp-syntax-variable: #111111 !important;
+  --sp-syntax-operator: #333333 !important;
+  --sp-syntax-punctuation: #333333 !important;
+  --sp-syntax-tag: #b3261e !important;
+  --sp-syntax-attribute: #8a5a00 !important;
+  --sp-syntax-meta: #555555 !important;
+  --sp-syntax-addition: #1e6b2a !important;
+  --sp-syntax-deletion: #b3261e !important;
+}

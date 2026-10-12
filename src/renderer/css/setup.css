@@ -1,0 +1,169 @@
+/*
+ * First-launch key setup. Also styles the passphrase helpers that the
+ * settings dialog reuses (strength line, Show toggle, info and danger boxes,
+ * the no-recovery warning). Colours, fonts and shapes come only from the
+ * style variables; sizes are in em so the screen works at any UI size.
+ */
+
+.sp-setup-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em 1em;
+  overflow: auto;
+  background: var(--sp-color-app-bg);
+  color: var(--sp-color-text);
+}
+
+.sp-setup-card {
+  width: 100%;
+  max-width: 34em;
+  max-height: 100%;
+  overflow: auto;
+  padding: 2em 2em 1.6em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-radius: var(--sp-shape-radius-lg);
+  background: var(--sp-color-surface-raised);
+  color: var(--sp-color-text);
+  box-shadow: var(--sp-shape-shadow-dialog);
+}
+
+.sp-setup-mark {
+  display: flex;
+  margin-bottom: 0.5em;
+  color: var(--sp-color-accent);
+}
+
+.sp-setup-title {
+  margin: 0 0 0.35em;
+  font-family: var(--sp-font-heading);
+  font-size: 1.6em;
+  font-weight: var(--sp-type-heading-weight);
+  line-height: 1.2;
+  color: var(--sp-color-heading);
+}
+
+.sp-setup-intro {
+  margin: 0 0 1.1em;
+  line-height: 1.5;
+}
+
+.sp-setup-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sp-setup-switch {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1.1em;
+}
+.sp-setup-switch > button {
+  flex: 1 1 auto;
+  min-height: 2.25em;
+  white-space: normal;
+}
+
+.sp-setup-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-setup-form .sp-error-text {
+  margin: 0 0 0.5em;
+}
+
+.sp-setup-busy {
+  margin: 0.7em 0 0;
+}
+
+.sp-setup-submit {
+  width: 100%;
+  margin-top: 0.3em;
+  white-space: normal;
+}
+
+/* --- passphrase helpers (shared with the settings dialog) ----------------- */
+
+.sp-passphrase-set {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-strength {
+  font-size: 0.92em;
+  color: var(--sp-color-text-muted);
+}
+.sp-strength.is-short {
+  color: var(--sp-color-warning);
+}
+.sp-strength.is-good,
+.sp-strength.is-strong {
+  color: var(--sp-color-success);
+}
+
+.sp-show-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: -0.4em 0 0.9em;
+}
+.sp-show-toggle {
+  min-height: 2em;
+}
+.sp-show-glyph {
+  display: inline-flex;
+}
+
+.sp-ack {
+  margin: 0.2em 0 0.9em;
+  line-height: 1.4;
+}
+
+.sp-no-recovery {
+  margin: 0 0 1em;
+}
+.sp-no-recovery-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sp-no-recovery-title {
+  display: block;
+}
+.sp-no-recovery-text p {
+  margin: 0.2em 0 0;
+  line-height: 1.5;
+}
+
+.sp-info-box,
+.sp-danger-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
+  margin: 0 0 1.1em;
+  padding: 0.75em 0.9em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-left-width: 0.25em;
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-surface);
+  color: var(--sp-color-text);
+  line-height: 1.5;
+}
+.sp-info-box {
+  border-left-color: var(--sp-color-accent);
+}
+.sp-info-box > .sp-icon {
+  margin-top: 0.1em;
+  color: var(--sp-color-accent);
+}
+.sp-danger-box {
+  border-color: var(--sp-color-danger);
+}
+.sp-danger-box > .sp-icon {
+  margin-top: 0.1em;
+  color: var(--sp-color-danger);
+}

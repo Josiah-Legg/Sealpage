@@ -1,0 +1,26 @@
+/*
+ * Menu bar buttons. They sit inside the title bar, which is the window's drag
+ * region, so they opt out of dragging. Heights come from the title bar, never
+ * from a fixed pixel size, so a large UI font cannot clip the text.
+ */
+
+.sp-menubar-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.7em;
+  border: none;
+  background: transparent;
+  color: var(--sp-color-chrome-text);
+  white-space: nowrap;
+  cursor: default;
+  -webkit-app-region: no-drag;
+}
+
+.sp-menubar-item:hover {
+  background: var(--sp-color-surface-hover);
+}
+
+.sp-menubar-item.is-open,
+.sp-menubar-item[aria-expanded='true'] {
+  background: var(--sp-color-surface-active);
+}

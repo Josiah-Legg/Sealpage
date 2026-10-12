@@ -1,0 +1,126 @@
+/*
+ * The keyboard shortcut reference. The list scrolls on its own so the search
+ * field and the footer stay in view. Sizes are in em.
+ */
+
+.sp-shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  min-width: 0;
+}
+
+.sp-shortcuts-search {
+  width: 100%;
+}
+
+.sp-shortcuts-list {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 0.4em;
+}
+
+.sp-shortcuts-group + .sp-shortcuts-group {
+  margin-top: 1em;
+}
+
+.sp-shortcuts-group-title {
+  margin: 0 0 0.2em;
+  font-family: var(--sp-font-heading);
+  font-size: 0.92em;
+  font-weight: var(--sp-type-heading-weight);
+  color: var(--sp-color-heading);
+}
+
+.sp-shortcuts-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  column-gap: 0.8em;
+  row-gap: 0.4em;
+  padding: 0.35em 0.4em;
+  border-bottom: var(--sp-shape-border-width) solid var(--sp-color-border);
+}
+
+.sp-shortcuts-row-recording {
+  background: var(--sp-color-surface-active);
+}
+
+.sp-shortcuts-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sp-shortcuts-keys {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.3em;
+  min-width: 6em;
+}
+
+.sp-shortcuts-none {
+  padding-right: 0.4em;
+  color: var(--sp-color-text-faint);
+}
+
+.sp-shortcuts-recording {
+  color: var(--sp-color-accent);
+}
+
+.sp-shortcuts-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35em;
+  min-width: 0;
+}
+
+.sp-btn.sp-shortcuts-action {
+  min-height: 0;
+  padding: 0.2em 0.65em;
+  font-size: 0.92em;
+}
+
+.sp-shortcuts-feedback {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.sp-shortcuts-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  min-width: 0;
+}
+
+.sp-shortcuts-confirm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.sp-shortcuts-empty {
+  padding: 0.6em 0.4em;
+}
+
+.sp-shortcuts-footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sp-btn.sp-shortcuts-reset-all {
+  min-height: 0;
+  padding: 0.2em 0;
+  border-color: transparent;
+  background: transparent;
+  color: var(--sp-color-link);
+  text-decoration: underline;
+}
+
+.sp-btn.sp-shortcuts-reset-all:hover {
+  background: transparent;
+  color: var(--sp-color-link);
+}

@@ -1,0 +1,65 @@
+/*
+ * The formatting toolbar: one non-wrapping row. Everything is in em, so the
+ * row scales with the UI font. Overflow is hidden rather than wrapped.
+ */
+
+.sp-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.2em;
+  padding: 0.25em 0.6em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sp-toolbar > * {
+  flex: none;
+}
+
+.sp-toolbar-btn-text {
+  width: auto;
+  padding: 0 0.6em;
+}
+
+.sp-toolbar-sep {
+  width: var(--sp-shape-border-width);
+  height: 1.5em;
+  margin: 0 0.35em;
+  background: var(--sp-color-chrome-border);
+}
+
+.sp-toolbar-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  max-width: 13em;
+  min-height: 2.1em;
+  padding: 0 0.5em 0 0.6em;
+  border: none;
+  border-radius: var(--sp-shape-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sp-toolbar-dropdown:hover {
+  background: var(--sp-color-surface-hover);
+}
+
+.sp-toolbar-dropdown.is-open {
+  background: var(--sp-color-surface-active);
+}
+
+.sp-toolbar-dropdown:disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.sp-toolbar-dropdown-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

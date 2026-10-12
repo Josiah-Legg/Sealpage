@@ -1,0 +1,179 @@
+/*
+ * The graph editor dialog: settings and data grid on the left, live preview on
+ * the right. The columns stack when the dialog is narrow. Sizes in em.
+ */
+
+/* `hidden` must win over the display rules of .sp-field and .sp-btn. */
+.sp-graph-editor [hidden] {
+  display: none !important;
+}
+
+/* --- two columns that stack when narrow ------------------------------------- */
+
+.sp-graph-editor-layout {
+  container-type: inline-size;
+}
+.sp-graph-editor-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.2em;
+  align-items: start;
+}
+@container (max-width: 40em) {
+  .sp-graph-editor-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.sp-graph-editor-left,
+.sp-graph-editor-right {
+  min-width: 0;
+}
+.sp-graph-editor-right > .sp-label {
+  display: block;
+  margin-bottom: 0.35em;
+}
+
+/* --- settings ---------------------------------------------------------------- */
+
+.sp-graph-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em 1em;
+}
+.sp-graph-legend-row .sp-select {
+  width: auto;
+  min-width: 8em;
+}
+.sp-graph-legend-row .sp-select:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.sp-graph-editor .sp-input[type='number'] {
+  width: 8em;
+}
+
+/* --- data grid ----------------------------------------------------------------- */
+
+.sp-graph-grid-scroll {
+  max-height: 18em;
+  overflow: auto;
+  border: var(--sp-shape-border-width) solid var(--sp-color-table-border);
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-input-bg);
+}
+.sp-graph-grid {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.sp-graph-grid th,
+.sp-graph-grid td {
+  padding: 0;
+  border-right: var(--sp-shape-border-width) solid var(--sp-color-table-border);
+  border-bottom: var(--sp-shape-border-width) solid var(--sp-color-table-border);
+  vertical-align: middle;
+}
+.sp-graph-grid tr > :last-child {
+  border-right: none;
+}
+.sp-graph-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.sp-graph-head {
+  background: var(--sp-color-table-header-bg);
+  color: var(--sp-color-table-header-text);
+}
+.sp-graph-head-inner {
+  display: flex;
+  align-items: center;
+}
+.sp-graph-cell {
+  min-width: 8em;
+  min-height: 2em;
+  padding: 0.3em 0.55em;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--sp-color-text);
+  box-sizing: border-box;
+}
+.sp-graph-colname {
+  font-weight: 600;
+  color: var(--sp-color-table-header-text);
+}
+.sp-graph-head-inner .sp-graph-cell {
+  flex: 1 1 auto;
+}
+.sp-graph-gutter {
+  width: 2.4em;
+  min-width: 2.4em;
+  text-align: center;
+  color: var(--sp-color-text-faint);
+  font-size: 0.85em;
+  user-select: none;
+}
+.sp-graph-data {
+  background: transparent;
+}
+.sp-graph-actions {
+  width: 2.4em;
+  min-width: 2.4em;
+  text-align: center;
+}
+.sp-graph-grid .sp-graph-remove {
+  width: 1.7em;
+  height: 1.7em;
+  color: var(--sp-color-text-faint);
+}
+.sp-graph-grid .sp-graph-remove:hover {
+  color: var(--sp-color-danger);
+}
+.sp-graph-grid thead .sp-graph-remove {
+  flex: none;
+  margin-right: 0.2em;
+}
+.sp-graph-grid-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.6em;
+}
+
+/* --- preview and problems ---------------------------------------------------- */
+
+.sp-graph-preview {
+  min-width: 0;
+  padding: 0.6em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border);
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-editor-bg);
+}
+.sp-graph-preview-figure svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.sp-graph-problems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  margin-top: 0.7em;
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+}
+.sp-graph-problem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45em;
+  color: var(--sp-color-text);
+}
+.sp-graph-problem .sp-icon {
+  flex: none;
+  margin-top: 0.15em;
+  color: var(--sp-color-warning);
+}

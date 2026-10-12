@@ -1,0 +1,35 @@
+/*
+ * The slash menu. The surface and the rows reuse the shared .sp-menu classes
+ * (base.css); this file only adds the block title and its muted description,
+ * and the size and scrolling of the menu. Position is set from slashMenu.ts.
+ */
+
+.sp-slash-menu {
+  position: fixed;
+  width: max-content;
+  min-width: 16em;
+  max-width: 26em;
+  max-height: 20em;
+  overflow-y: auto;
+}
+
+.sp-slash-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  min-width: 0;
+}
+
+.sp-slash-title {
+  flex: none;
+}
+
+.sp-slash-desc {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--sp-color-text-muted);
+  font-size: 0.85em;
+}

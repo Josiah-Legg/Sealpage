@@ -1,0 +1,94 @@
+/*
+ * A graph block in the document: the figure, its warnings line and the
+ * floating tools (edit, export). Sizes are in em so the block scales with the
+ * UI font; colours, radii and shadows come from the active style.
+ */
+
+.sp-graph-block {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.6em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border);
+  border-radius: var(--sp-shape-radius-md);
+  cursor: default;
+}
+
+.sp-graph-figure {
+  position: relative;
+  min-width: 0;
+}
+
+/* The SVG scales down with the figure; the node view sets max-width, height and display inline. */
+.sp-graph-figure svg {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- warnings line ---------------------------------------------------------- */
+
+.sp-graph-warnings {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4em;
+  margin-top: 0.5em;
+  color: var(--sp-color-text-muted);
+  font-family: var(--sp-font-ui);
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+.sp-graph-warnings[hidden] {
+  display: none;
+}
+.sp-graph-warnings .sp-icon {
+  flex: none;
+  margin-top: 0.15em;
+  color: var(--sp-color-warning);
+}
+.sp-graph-warnings-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* --- floating tools (top right, shown on hover or selection) ---------------- */
+
+.sp-graph-tools {
+  position: absolute;
+  top: 0.45em;
+  right: 0.45em;
+  z-index: 2;
+  display: flex;
+  gap: 0.2em;
+  padding: 0.2em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-border-strong);
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-surface-raised);
+  box-shadow: var(--sp-shape-shadow-menu);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.sp-graph-block:hover > .sp-graph-tools,
+.sp-graph-block.ProseMirror-selectednode > .sp-graph-tools,
+.sp-graph-tools:focus-within {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.sp-graph-tools .sp-icon-btn {
+  width: 1.9em;
+  height: 1.9em;
+  color: var(--sp-color-text-muted);
+}
+.sp-graph-tools .sp-icon-btn:hover {
+  color: var(--sp-color-text);
+}
+
+/* --- print: the graph is part of the page, not a card --------------------- */
+
+@media print {
+  .sp-graph-block {
+    border: none;
+    padding: 0;
+  }
+}

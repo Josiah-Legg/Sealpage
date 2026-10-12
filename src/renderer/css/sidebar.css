@@ -1,0 +1,118 @@
+/*
+ * Sidebar: the folder tree. Colours come from the active style (see
+ * docs/ARCHITECTURE.md section 6). Sizes are in em so the tree scales with the UI font.
+ */
+
+.sp-sidebar-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  color: var(--sp-color-text);
+}
+.sp-sidebar-root [hidden] {
+  display: none !important;
+}
+
+/* --- header --------------------------------------------------------------- */
+
+.sp-sidebar-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.1em;
+  min-width: 0;
+  padding: 0.5em 0.4em 0.5em 0.8em;
+  border-bottom: var(--sp-shape-border-width) solid var(--sp-color-border);
+}
+.sp-sidebar-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--sp-color-text-muted);
+  font-size: 0.92em;
+  font-weight: 600;
+}
+.sp-sidebar-header .sp-icon-btn {
+  flex: none;
+  color: var(--sp-color-text-muted);
+}
+
+/* --- tree ----------------------------------------------------------------- */
+
+.sp-tree {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  padding: 0.3em 0;
+  outline: none;
+}
+.sp-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  min-width: 0;
+  padding: 0.22em 0.6em 0.22em calc(0.5em + var(--sp-tree-depth, 0) * 1em);
+  color: var(--sp-color-text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.sp-tree-row:hover {
+  background: var(--sp-color-surface-hover);
+}
+.sp-tree-row.is-open {
+  color: var(--sp-color-text);
+}
+.sp-tree-row.is-active {
+  background: var(--sp-color-surface-active);
+  color: var(--sp-color-accent);
+}
+.sp-tree:focus .sp-tree-row.is-cursor {
+  outline: var(--sp-shape-focus-ring-width) solid var(--sp-color-focus-ring);
+  outline-offset: -1px;
+}
+.sp-tree-chevron {
+  flex: none;
+  display: inline-flex;
+  justify-content: center;
+  width: 1em;
+  color: var(--sp-color-text-faint);
+}
+.sp-tree-icon {
+  flex: none;
+  display: inline-flex;
+  color: var(--sp-color-text-muted);
+}
+.sp-tree-row.is-active .sp-tree-icon {
+  color: inherit;
+}
+.sp-tree-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sp-tree-note {
+  padding: 0.22em 0.6em 0.22em calc(0.5em + var(--sp-tree-depth, 0) * 1em + 1.35em);
+  color: var(--sp-color-text-faint);
+  font-size: 0.92em;
+  white-space: normal;
+}
+
+/* --- empty and error states ----------------------------------------------- */
+
+.sp-sidebar-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8em;
+  padding: 1em 0.9em;
+  color: var(--sp-color-text-muted);
+}
+.sp-sidebar-empty > p {
+  margin: 0;
+}

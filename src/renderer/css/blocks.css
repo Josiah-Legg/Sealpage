@@ -1,0 +1,209 @@
+/*
+ * Block chrome that sits on top of editor.css: the code block header, the
+ * syntax colours of highlighted code, and the checkbox of a checklist item.
+ * Every value comes from the active style's CSS variables.
+ */
+
+/* --- code block: header and code read as one box --------------------------- */
+
+.sp-document .sp-code-block {
+  position: relative;
+}
+
+.sp-document .sp-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.2em;
+  padding: 0.1em 0.4em 0.1em 0.6em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-code-border);
+  border-bottom: none;
+  border-radius: var(--sp-shape-radius-md) var(--sp-shape-radius-md) 0 0;
+  background: var(--sp-color-code-bg);
+  color: var(--sp-color-text-muted);
+  font-family: var(--sp-font-ui);
+  font-size: 0.8em;
+  user-select: none;
+}
+
+.sp-document .sp-code-language {
+  width: 9em;
+  min-width: 0;
+  margin: 0;
+  padding: 0.25em 0.5em;
+  border: none;
+  border-radius: var(--sp-shape-radius-sm);
+  background: transparent;
+  color: inherit;
+  font-family: var(--sp-font-ui);
+  font-size: 1em;
+  text-align: right;
+  outline: none;
+}
+.sp-document .sp-code-language::placeholder {
+  color: var(--sp-color-text-faint);
+  opacity: 1;
+}
+.sp-document .sp-code-language:focus {
+  outline: var(--sp-shape-focus-ring-width) solid var(--sp-color-focus-ring);
+  outline-offset: 0;
+}
+
+.sp-document .sp-code-header .sp-icon-btn {
+  width: 1.9em;
+  height: 1.9em;
+  color: var(--sp-color-text-muted);
+}
+.sp-document .sp-code-header .sp-icon-btn:hover {
+  color: var(--sp-color-text);
+}
+
+/* The code below loses its top border and corners so the two parts join. */
+.sp-document .sp-code-block > pre.sp-code {
+  margin: 0;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+@media print {
+  .sp-document .sp-code-header {
+    display: none;
+  }
+}
+
+/* --- syntax colours (highlight.js classes from editor/highlight.ts) -------- */
+
+.sp-document .hljs-comment,
+.sp-document .hljs-quote {
+  color: var(--sp-syntax-comment);
+  font-style: italic;
+}
+/* Pixel fonts have no italic: comments stay upright there. */
+[data-pixel-font] .sp-document .hljs-comment,
+[data-pixel-font] .sp-document .hljs-quote {
+  font-style: normal;
+}
+
+.sp-document .hljs-keyword,
+.sp-document .hljs-selector-tag,
+.sp-document .hljs-literal,
+.sp-document .hljs-doctag {
+  color: var(--sp-syntax-keyword);
+}
+
+.sp-document .hljs-string,
+.sp-document .hljs-regexp,
+.sp-document .hljs-char,
+.sp-document .hljs-template-string {
+  color: var(--sp-syntax-string);
+}
+
+.sp-document .hljs-number,
+.sp-document .hljs-symbol,
+.sp-document .hljs-bullet {
+  color: var(--sp-syntax-number);
+}
+
+.sp-document .hljs-title,
+.sp-document .hljs-function,
+.sp-document .hljs-section {
+  color: var(--sp-syntax-function);
+}
+
+.sp-document .hljs-type,
+.sp-document .hljs-built_in,
+.sp-document .hljs-class {
+  color: var(--sp-syntax-type);
+}
+
+.sp-document .hljs-variable,
+.sp-document .hljs-template-variable,
+.sp-document .hljs-params,
+.sp-document .hljs-property {
+  color: var(--sp-syntax-variable);
+}
+
+.sp-document .hljs-operator {
+  color: var(--sp-syntax-operator);
+}
+
+.sp-document .hljs-punctuation {
+  color: var(--sp-syntax-punctuation);
+}
+
+.sp-document .hljs-tag,
+.sp-document .hljs-name,
+.sp-document .hljs-selector-id,
+.sp-document .hljs-selector-class {
+  color: var(--sp-syntax-tag);
+}
+
+.sp-document .hljs-attr,
+.sp-document .hljs-attribute {
+  color: var(--sp-syntax-attribute);
+}
+
+.sp-document .hljs-meta,
+.sp-document .hljs-subst {
+  color: var(--sp-syntax-meta);
+}
+
+.sp-document .hljs-addition {
+  color: var(--sp-syntax-addition);
+}
+
+.sp-document .hljs-deletion {
+  color: var(--sp-syntax-deletion);
+}
+
+/* --- checklist: the box at the left of each item --------------------------- */
+
+/* Outside a check list the checkbox does not exist for the reader. */
+.sp-check {
+  display: none;
+}
+
+.sp-document ul.sp-list-check > li {
+  position: relative;
+}
+
+.sp-document ul.sp-list-check > li > .sp-check {
+  display: block;
+  position: absolute;
+  left: -1.55em;
+  top: 0.28em;
+  width: 1em;
+  height: 1em;
+  box-sizing: border-box;
+  border: var(--sp-shape-border-width) solid var(--sp-color-checkbox-border);
+  border-radius: var(--sp-shape-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+}
+.sp-document ul.sp-list-check > li > .sp-check:hover {
+  border-color: var(--sp-color-accent);
+}
+
+.sp-document ul.sp-list-check > li[data-checked='true'] > .sp-check {
+  background: var(--sp-color-checkbox-checked-bg);
+  border-color: var(--sp-color-checkbox-checked-bg);
+}
+.sp-document ul.sp-list-check > li[data-checked='true'] > .sp-check::after {
+  content: '';
+  position: absolute;
+  left: 32%;
+  top: 10%;
+  width: 30%;
+  height: 58%;
+  border: solid var(--sp-color-checkbox-check);
+  border-width: 0 0.14em 0.14em 0;
+  transform: rotate(45deg);
+}
+
+/* Only the item's own paragraph is struck through: nested lists keep their text. */
+.sp-document ul.sp-list-check > li[data-checked='true'] > .sp-list-item-content > p {
+  color: var(--sp-color-checked-text);
+  text-decoration: line-through;
+}

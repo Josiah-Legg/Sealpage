@@ -1,0 +1,364 @@
+/*
+ * Document typography: how each block and inline format looks in the editor.
+ * Fully driven by the active style's CSS variables.
+ */
+
+.sp-editor-pane {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--sp-color-editor-bg);
+}
+.sp-editor-pane.is-active {
+  display: block;
+}
+.sp-print-edge {
+  display: none;
+}
+.sp-editor-mount {
+  min-height: 100%;
+  font-size: calc(var(--sp-type-base-size) * var(--sp-layout-zoom, 1));
+  cursor: text;
+}
+
+/* --- ProseMirror essentials ------------------------------------------------ */
+
+.ProseMirror {
+  position: relative;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: break-spaces;
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0;
+}
+.ProseMirror li {
+  position: relative;
+}
+.ProseMirror-hideselection *::selection {
+  background: transparent;
+}
+.ProseMirror-hideselection {
+  caret-color: transparent;
+}
+.ProseMirror [draggable][contenteditable='false'] {
+  user-select: text;
+}
+.ProseMirror-selectednode {
+  outline: var(--sp-shape-focus-ring-width) solid var(--sp-color-focus-ring);
+  outline-offset: 2px;
+}
+li.ProseMirror-selectednode {
+  outline: none;
+}
+.ProseMirror-gapcursor {
+  display: none;
+  pointer-events: none;
+  position: absolute;
+}
+.ProseMirror-gapcursor::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2px;
+  width: 1.4em;
+  border-top: 2px solid var(--sp-color-caret);
+  animation: sp-gapcursor-blink 1.1s steps(2, start) infinite;
+}
+@keyframes sp-gapcursor-blink {
+  to {
+    visibility: hidden;
+  }
+}
+.ProseMirror-focused .ProseMirror-gapcursor {
+  display: block;
+}
+.sp-dropcursor {
+  background: var(--sp-color-accent) !important;
+}
+.ProseMirror-search-match {
+  background: var(--sp-color-search-match-bg);
+  border-radius: 2px;
+}
+.ProseMirror-active-search-match {
+  background: var(--sp-color-search-match-active-bg);
+  border-radius: 2px;
+}
+
+/* --- the page -------------------------------------------------------------- */
+
+.sp-document {
+  /* the style's own measure, or a share of the pane on wide windows, whichever is larger */
+  max-width: max(calc(var(--sp-type-content-width) * var(--sp-layout-zoom, 1) + 6em), var(--sp-layout-page-fill, 62%));
+  margin: 0 auto;
+  padding: 3.2em 3em 45vh;
+  outline: none;
+  font-family: var(--sp-font-body);
+  font-weight: var(--sp-type-body-weight);
+  line-height: var(--sp-type-line-height);
+  letter-spacing: var(--sp-type-body-letter-spacing);
+  color: var(--sp-color-text);
+  caret-color: var(--sp-color-caret);
+  user-select: text;
+  tab-size: 4;
+}
+[data-caret='block'] .sp-document {
+  caret-shape: block;
+}
+
+.sp-document > * {
+  margin: 0;
+}
+.sp-document > * + * {
+  margin-top: var(--sp-type-block-spacing);
+}
+
+.sp-placeholder::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--sp-color-text-faint);
+  pointer-events: none;
+}
+
+/* --- headings -------------------------------------------------------------- */
+
+.sp-document h1,
+.sp-document h2,
+.sp-document h3,
+.sp-document h4 {
+  font-family: var(--sp-font-heading);
+  font-weight: var(--sp-type-heading-weight);
+  line-height: var(--sp-type-heading-line-height);
+  letter-spacing: var(--sp-type-heading-letter-spacing);
+  color: var(--sp-color-heading);
+  text-wrap: balance;
+}
+.sp-document h1.sp-title {
+  font-size: var(--sp-type-title-size);
+  font-weight: var(--sp-type-title-weight);
+}
+.sp-document h2 {
+  font-size: var(--sp-type-h1-size);
+}
+.sp-document h3 {
+  font-size: var(--sp-type-h2-size);
+}
+.sp-document h4 {
+  font-size: var(--sp-type-h3-size);
+}
+.sp-document > * + h2,
+.sp-document > * + h3,
+.sp-document > * + h4 {
+  margin-top: calc(var(--sp-type-block-spacing) + var(--sp-type-heading-spacing));
+}
+.sp-document > h1 + *,
+.sp-document > h2 + *,
+.sp-document > h3 + *,
+.sp-document > h4 + * {
+  margin-top: calc(var(--sp-type-block-spacing) * 0.75);
+}
+
+/* --- inline ---------------------------------------------------------------- */
+
+.sp-document strong {
+  font-weight: var(--sp-type-bold-weight);
+  color: var(--sp-color-heading);
+}
+.sp-document em {
+  font-style: italic;
+}
+/* Pixel fonts have one weight and no italic: use the terminal conventions instead. */
+[data-pixel-font] .sp-document strong {
+  font-weight: inherit;
+  text-shadow: 1px 0 0 currentColor, var(--sp-fx-text-glow);
+}
+[data-pixel-font] .sp-document em {
+  font-style: normal;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.sp-document a.sp-link {
+  color: var(--sp-color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.18em;
+  cursor: text;
+}
+.sp-document .sp-inline-code {
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-code-size);
+  padding: 0.12em 0.36em;
+  border-radius: var(--sp-shape-radius-sm);
+  background: var(--sp-color-inline-code-bg);
+  color: var(--sp-color-inline-code-text);
+  font-variant-ligatures: none;
+}
+
+/* --- lists ----------------------------------------------------------------- */
+
+/* top-level lists take their vertical spacing from the block rule above */
+.sp-document ul,
+.sp-document ol {
+  padding-left: 1.7em;
+}
+.sp-document li > ul,
+.sp-document li > ol {
+  margin-top: 0.25em;
+}
+.sp-document li + li {
+  margin-top: 0.25em;
+}
+.sp-document li > p {
+  margin: 0;
+}
+.sp-document li::marker {
+  color: var(--sp-color-text-muted);
+}
+.sp-document ul.sp-list-check {
+  list-style: none;
+  padding-left: 1.9em;
+}
+
+/* --- quote ----------------------------------------------------------------- */
+
+.sp-document blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.35em 0 0.35em 1.1em;
+  border-left: var(--sp-shape-quote-bar-width) solid var(--sp-color-quote-bar);
+  background: var(--sp-color-quote-bg);
+  color: var(--sp-color-quote-text);
+  border-radius: 0 var(--sp-shape-radius-sm) var(--sp-shape-radius-sm) 0;
+}
+.sp-document blockquote > p {
+  margin: 0;
+}
+.sp-document blockquote > p + p {
+  margin-top: 0.6em;
+}
+
+/* --- code block ------------------------------------------------------------ */
+
+.sp-document pre {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.9em 1.1em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-code-border);
+  border-radius: var(--sp-shape-radius-md);
+  background: var(--sp-color-code-bg);
+  color: var(--sp-color-code-text);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-code-size);
+  line-height: var(--sp-type-code-line-height);
+  letter-spacing: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+.sp-document pre code {
+  font: inherit;
+  display: block;
+}
+
+/* --- divider --------------------------------------------------------------- */
+
+.sp-document hr {
+  height: 0;
+  border: none;
+  border-top: var(--sp-shape-divider-width) var(--sp-shape-divider-style) var(--sp-color-divider);
+  margin-top: calc(var(--sp-type-block-spacing) * 1.6);
+  margin-bottom: calc(var(--sp-type-block-spacing) * 0.6);
+}
+
+/* --- table ----------------------------------------------------------------- */
+
+.sp-document .tableWrapper {
+  overflow-x: auto;
+}
+.sp-document table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  overflow: hidden;
+  font-size: 0.95em;
+}
+.sp-document td,
+.sp-document th {
+  position: relative;
+  min-width: 2em;
+  padding: 0.45em 0.7em;
+  border: var(--sp-shape-border-width) solid var(--sp-color-table-border);
+  vertical-align: top;
+  text-align: left;
+}
+.sp-document th {
+  background: var(--sp-color-table-header-bg);
+  color: var(--sp-color-table-header-text);
+  font-weight: var(--sp-type-bold-weight);
+}
+.sp-document tr:nth-child(even) td {
+  background: var(--sp-color-table-stripe-bg);
+}
+.sp-document .selectedCell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--sp-color-accent-muted);
+  pointer-events: none;
+}
+
+/* --- graph (the node view fills this in) ------------------------------------ */
+
+.sp-document .sp-graph-block {
+  display: block;
+}
+
+/* Outside print the frame is invisible layout: the mount fills the pane. */
+.sp-print-frame,
+.sp-print-body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.sp-print-body {
+  flex: 1;
+}
+.sp-print-body > .sp-editor-mount {
+  flex: 1;
+}
+
+/* --- refinements ----------------------------------------------------------- */
+
+/* list items are node views: the paragraph sits inside .sp-list-item-content */
+.sp-document li p {
+  margin: 0;
+}
+.sp-document li ul,
+.sp-document li ol {
+  margin: 0.25em 0 0;
+}
+
+.sp-document .sp-inline-code {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Pixel fonts cannot show weight, so headings are double-struck and the two
+   smallest levels (which share the body size) get a terminal-style marker. */
+[data-pixel-font] .sp-document h1,
+[data-pixel-font] .sp-document h2,
+[data-pixel-font] .sp-document h3,
+[data-pixel-font] .sp-document h4 {
+  text-shadow: 1px 0 0 currentColor, var(--sp-fx-text-glow);
+}
+[data-pixel-font] .sp-document h3::before {
+  content: '> ';
+  color: var(--sp-color-text-muted);
+}
+[data-pixel-font] .sp-document h4::before {
+  content: '>> ';
+  color: var(--sp-color-text-muted);
+}

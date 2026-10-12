@@ -1,0 +1,90 @@
+/*
+ * Tab strip. The active tab takes the editor's background so it reads as part
+ * of the page; a thin accent line marks it. Colours come from the active style.
+ */
+
+.sp-tabs {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  color: var(--sp-color-text-muted);
+}
+.sp-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sp-tab {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  max-width: 15em;
+  padding: 0.5em 0.3em 0.5em 0.9em;
+  border-right: var(--sp-shape-border-width) solid var(--sp-color-border);
+  color: var(--sp-color-text-muted);
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+}
+.sp-tab:hover {
+  background: var(--sp-color-surface-hover);
+  color: var(--sp-color-text);
+}
+.sp-tab.is-active {
+  background: var(--sp-color-editor-bg);
+  color: var(--sp-color-text);
+}
+.sp-tab.is-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.15em;
+  background: var(--sp-color-accent);
+}
+.sp-tab.is-dragging {
+  opacity: 0.45;
+}
+.sp-tab-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sp-tab-dirty {
+  flex: none;
+  color: var(--sp-color-accent);
+}
+.sp-tab .sp-tab-close {
+  flex: none;
+  width: 1.6em;
+  height: 1.6em;
+  visibility: hidden;
+}
+.sp-tab:hover .sp-tab-close,
+.sp-tab.is-active .sp-tab-close {
+  visibility: visible;
+}
+.sp-tabs .sp-tab-new {
+  flex: none;
+  align-self: center;
+  margin: 0 0.3em;
+}
+
+/* insertion marker while dragging a tab */
+.sp-tab-drop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.18em;
+  margin-left: -0.09em;
+  background: var(--sp-color-accent);
+  pointer-events: none;
+  z-index: 1;
+}

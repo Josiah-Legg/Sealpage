@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>Sealpage</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="titlebar">
+        <div id="titlebar-brand"></div>
+        <nav id="menubar"></nav>
+        <div id="titlebar-title"></div>
+      </header>
+      <div id="toolbar"></div>
+      <div id="main">
+        <aside id="sidebar"></aside>
+        <div id="sidebar-resizer"></div>
+        <section id="workspace">
+          <div id="tabbar"></div>
+          <div id="findbar"></div>
+          <div id="editor-host"></div>
+        </section>
+      </div>
+      <footer id="statusbar"></footer>
+    </div>
+    <div id="overlay-root"></div>
+    <div id="fx-layer" aria-hidden="true">
+      <div class="sp-fx-grain"></div>
+      <div class="sp-fx-scanlines"></div>
+      <div class="sp-fx-vignette"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
